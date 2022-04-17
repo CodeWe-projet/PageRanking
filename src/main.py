@@ -15,7 +15,7 @@ vector_csv = CWD / "VecteurPersonnalisation_Groupe20.csv"
 
 with vector_csv.open("r") as f:
     reader = csv.reader(f)
-    personnalisation_vector = list(reader)[0]
+    personnalisation_vector = np.array(list(reader)[0], dtype=np.float64)
 
 # A Function to calculate the google matrix from P, alpha and v.
 #  G = alpha * P  + (1 - alpha) * e * v.T (where e is a column vector full of 1)
@@ -36,8 +36,10 @@ def pageRankLinear(A: np.matrix, alpha: float, v: np.array) -> np.array:
     :param alpha: teleportation parameter (0.9) default
     :param v: Personalisation vector
     """
-
-    return
+    A_b = (np.identity(len(A)) - alpha * p_matrix(A)).T
+    b = (1 - alpha) * v
+    return np.linalg.solve(A_b, b)
+    
 
 def pageRankPower(A: np.matrix, alpha: float, v: np.array) -> np.array:
     """Ex implementation of the PageRank algoritm.
