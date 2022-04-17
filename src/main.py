@@ -17,6 +17,17 @@ with vector_csv.open("r") as f:
     reader = csv.reader(f)
     personnalisation_vector = list(reader)[0]
 
+# A Function to calculate the google matrix from P, alpha and v.
+#  G = alpha * P  + (1 - alpha) * e * v.T (where e is a column vector full of 1)
+
+
+# Calculate the transition probabilities matrix from a graph A (an adjacent matrix), p_ij = w_ij / w_i
+
+
+
+# A function for the power method
+
+
 def pageRankLinear(A: np.matrix, alpha: float, v: np.array) -> np.array:
     """Linear implementation of the PageRank algoritm.
 
