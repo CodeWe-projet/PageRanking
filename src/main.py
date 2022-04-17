@@ -22,7 +22,8 @@ with vector_csv.open("r") as f:
 
 
 # Calculate the transition probabilities matrix from a graph A (an adjacent matrix), p_ij = w_ij / w_i
-
+def p_matrix(A :np.matrix) -> np.array:
+    return (A.T / A.sum(axis=1)).T
 
 
 # A function for the power method
