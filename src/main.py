@@ -23,7 +23,8 @@ with vector_csv.open("r") as f:
 
 # Calculate the transition probabilities matrix from a graph A (an adjacent matrix), p_ij = w_ij / w_i
 def p_matrix(A :np.matrix) -> np.array:
-    return (A.T / A.sum(axis=1)).T
+    return A / A.sum(axis=1)
+
 
 
 # A function for the power method
@@ -37,10 +38,10 @@ def pageRankLinear(A: np.matrix, alpha: float, v: np.array) -> np.array:
     :param v: Personalisation vector
     """
     A_b = (np.identity(len(A)) - alpha * p_matrix(A)).T
-    b = (1 - alpha) * v
+    b = (1 - alpha) * np.ones(len(A))
     return np.linalg.solve(A_b, b)
-    
 
+from scipy.linalg import eig
 def pageRankPower(A: np.matrix, alpha: float, v: np.array) -> np.array:
     """Ex implementation of the PageRank algoritm.
 
