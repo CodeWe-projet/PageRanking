@@ -19,6 +19,8 @@ with vector_csv.open("r") as f:
 
 # A Function to calculate the google matrix from P, alpha and v.
 #  G = alpha * P  + (1 - alpha) * e * v.T (where e is a column vector full of 1)
+def compute_g(alpha: float, P :np.array, v: np.array):
+    return alpha * P + (1 - alpha) * (np.ones(len(P)) @ v.T)
 
 
 # Calculate the transition probabilities matrix from a graph A (an adjacent matrix), p_ij = w_ij / w_i
@@ -38,7 +40,7 @@ def pageRankLinear(A: np.matrix, alpha: float, v: np.array) -> np.array:
     :param v: Personalisation vector
     """
     A_b = (np.identity(len(A)) - alpha * p_matrix(A)).T
-    b = (1 - alpha) * np.ones(len(A))
+    b = (1 - alpha) * v
     return np.linalg.solve(A_b, b)
 
 from scipy.linalg import eig
