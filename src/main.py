@@ -52,12 +52,3 @@ def pageRankPower(A: np.matrix, alpha: float, v: np.array) -> np.array:
         oldX = X
 
     return np.ravel(X.T)
-
-import data
-
-# Some debug lines
-matrix = np.matrix(data.data)
-res = pageRankLinear(matrix, 0.9, personnalisation_vector)
-print(res)
-res = (pageRankPower(matrix, 0.9, personnalisation_vector))
-print(res)
