@@ -17,19 +17,10 @@ with vector_csv.open("r") as f:
     reader = csv.reader(f)
     personnalisation_vector = np.array(list(reader)[0], dtype=np.float64)
 
-# A Function to calculate the google matrix from P, alpha and v.
-#  G = alpha * P  + (1 - alpha) * e * v.T (where e is a column vector full of 1)
-def compute_g(alpha: float, P :np.array, v: np.array):
-    return alpha * P + (1 - alpha) * np.ones((len(P),)) * v.T
-
 
 # Calculate the transition probabilities matrix from a graph A (an adjacent matrix), p_ij = w_ij / w_i
-def p_matrix(A :np.matrix) -> np.array:
+def p_matrix(A :np.matrix) -> np.matrix:
     return A / A.sum(axis=1)
-
-
-
-# A function for the power method
 
 
 def pageRankLinear(A: np.matrix, alpha: float, v: np.array) -> np.array:
@@ -53,17 +44,14 @@ def pageRankPower(A: np.matrix, alpha: float, v: np.array) -> np.array:
     :param v: Personalisation vector
     """
     P = p_matrix(A)
-    G = compute_g(alpha, P, v)
-    M = G.T
-    
-    # https://en.wikipedia.org/wiki/Power_iteration
+    G = alpha * P + (1 - alpha) * v.T
 
-    b_k = np.random.rand(M.shape[1]).reshape(-1, 1)
+    X = oldX = np.ones((len(A), 1)) /len(A)
 
-    for _ in range(30):
-        b_k1 = np.dot(M, b_k)
-        b_k = b_k1 / np.linalg.norm(b_k1)
-    return np.ravel((b_k / sum(b_k)))
+    while ((X := G.T @ X) != oldX).all():
+        oldX = X
+
+    return np.ravel(X.T)
 
 import data
 
