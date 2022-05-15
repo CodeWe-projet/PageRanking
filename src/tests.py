@@ -5,6 +5,7 @@ import csv
 
 import data
 import main
+import utils
 
 class TestPageRank(unittest.TestCase):
     def setUp(self):
@@ -12,19 +13,19 @@ class TestPageRank(unittest.TestCase):
         self.result = list(nx.pagerank(
             nx.from_numpy_array(np.array(data.data), create_using=nx.DiGraph),
             alpha=0.9,
-            personalization={i: n for i, n in enumerate(main.personnalisation_vector)}
+            personalization={i: n for i, n in enumerate(utils.get_personnalisation_vector())}
         ).values())
 
     def test_linear(self):
         np.testing.assert_almost_equal(
-            list(main.pageRankLinear(self.M, 0.9, main.personnalisation_vector)),
+            list(main.pageRankLinear(self.M, 0.9, utils.get_personnalisation_vector())),
             self.result,
             decimal=4
         )
 
     def test_power(self):
         np.testing.assert_almost_equal(
-            list(main.pageRankPower(self.M, 0.9, main.personnalisation_vector)),
+            list(main.pageRankPower(self.M, 0.9, utils.get_personnalisation_vector())),
             self.result,
             decimal=4
         )

@@ -5,18 +5,7 @@
 # Main file
 #
 
-import csv
-from pathlib import Path
-
 import numpy as np
-
-CWD = Path(".").absolute()
-vector_csv = CWD / "VecteurPersonnalisation_Groupe20.csv"
-
-with vector_csv.open("r") as f:
-    reader = csv.reader(f)
-    personnalisation_vector = np.array(list(reader)[0], dtype=np.float64)
-
 
 # Calculate the transition probabilities matrix from a graph A (an adjacent matrix), p_ij = w_ij / w_i
 def p_matrix(A :np.matrix) -> np.matrix:
