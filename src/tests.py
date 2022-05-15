@@ -33,10 +33,3 @@ class TestPageRank(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-# # Some debug lines
-# matrix = np.matrix(data.data)
-# res = pageRankLinear(matrix, 0.9, personnalisation_vector)
-# print(res)
-# res = (pageRankPower(matrix, 0.9, personnalisation_vector))
-# print(res)

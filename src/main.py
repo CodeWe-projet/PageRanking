@@ -18,19 +18,22 @@ def pageRankLinear(A: np.matrix, alpha: float, v: np.array) -> np.array:
     :param A: Regular and even directed graph
     :param alpha: teleportation parameter (0.9) default
     :param v: Personalisation vector
+    :return: PageRank vector
     """
-    A_b = (np.identity(len(A)) - alpha * p_matrix(A)).T
+    P = p_matrix(A)
+    A_b = (np.identity(len(A)) - alpha * P).T
     b = (1 - alpha) * v
     res = np.linalg.solve(A_b, b)
     return res / sum(res)
 
 
 def pageRankPower(A: np.matrix, alpha: float, v: np.array) -> np.array:
-    """Ex implementation of the PageRank algoritm.
+    """Exponential implementation of the PageRank algoritm.
 
     :param A: Regular and even directed graph
     :param alpha: teleportation parameter (0.9) default
     :param v: Personalisation vector
+    :return: PageRank vector
     """
     P = p_matrix(A)
     G = alpha * P + (1 - alpha) * v.T
